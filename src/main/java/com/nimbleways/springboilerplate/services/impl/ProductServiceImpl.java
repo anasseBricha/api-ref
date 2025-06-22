@@ -1,7 +1,15 @@
-package com.nimbleways.springboilerplate.services.implementations;
+package com.nimbleways.springboilerplate.services.impl;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
+import com.nimbleways.springboilerplate.dto.product.ProcessOrderResponse;
+import com.nimbleways.springboilerplate.entities.Order;
+import com.nimbleways.springboilerplate.repositories.OrderRepository;
+import com.nimbleways.springboilerplate.services.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,13 +17,14 @@ import com.nimbleways.springboilerplate.entities.Product;
 import com.nimbleways.springboilerplate.repositories.ProductRepository;
 
 @Service
-public class ProductService {
+@RequiredArgsConstructor
+public class ProductServiceImpl implements ProductService {
 
-    @Autowired
-    ProductRepository pr;
+    private final ProductRepository pr;
 
-    @Autowired
-    NotificationService ns;
+    private final NotificationService ns;
+
+    private final OrderRepository or;
 
     public void notifyDelay(int leadTime, Product p) {
         p.setLeadTime(leadTime);
@@ -46,4 +55,5 @@ public class ProductService {
             pr.save(p);
         }
     }
+
 }
